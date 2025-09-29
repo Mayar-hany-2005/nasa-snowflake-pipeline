@@ -1,0 +1,4 @@
+locations:
+  - location_name: nasa_pipeline
+    code_source:
+      package_name: nasa_snowflake   # اسم الباكدج/الفولدر اللي فيه الكود
