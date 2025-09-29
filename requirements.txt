@@ -1,9 +1,9 @@
 dagster==1.11.12
 dagster-cloud==1.6.12
-dagster
-dagit
+dagster-snowflake
 requests
 pandas
 xarray
 h5netcdf
 snowflake-connector-python
+
