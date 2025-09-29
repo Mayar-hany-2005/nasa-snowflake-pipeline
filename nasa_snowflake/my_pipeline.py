@@ -11,11 +11,11 @@ from dagster import job, op
 NASA_URL = "https://data.gesdisc.earthdata.nasa.gov/data/GLDAS/GLDAS_NOAH025_M.2.1/2000/GLDAS_NOAH025_M.A200001.021.nc4"
 
 # 🔑 Token من Earthdata (خليه في متغير)
-EARTHDATA_TOKEN = "eyJ0eXAiOiJKV1QiLCJvcmlnaW4iOiJFYXJ0aGRhdGEgTG9naW4iLCJzaWciOiJlZGxqd3RwdWJrZXlfb3BzIiwiYWxnIjoiUlMyNTYifQ.eyJ0eXBlIjoiVXNlciIsInVpZCI6Im1heWFyMjAwNSIsImV4cCI6MTc2MzU5Njc5OSwiaWF0IjoxNzU4NDA4MjYwLCJpc3MiOiJodHRwczovL3Vycy5lYXJ0aGRhdGEubmFzYS5nb3YiLCJpZGVudGl0eV9wcm92aWRlciI6ImVkbF9vcHMiLCJhY3IiOiJlZGwiLCJhc3N1cmFuY2VfbGV2ZWwiOjN9.IzcEHuwMgdaH_VsYDkNDSRn5vKZ0WGXadtc8cOKlhskX9rcglRgNpmFQkHJeXpix_W5FHy86knW3Cpd7EFcVHXfUTHyjpE8nMjObiGUPEpX_UTHkuRZWMuLXsLpVUlBPXNc9wWWMa7DqTbaRovAnyv7GdTQw3juUpwnxv2-qZPxfU0hNlgeaj4TqroCFAo6eIzMqp1xCFii22ie9gu-bEe6NmprFA0PkKOwyMe-_pe19uCPZ07Bmp6u9BRrc5qO0G-lgICg16Cx7RO2Vx60pjpwa_FLhmO-04qR93C15flALxE40LyfjzW68tJVjIzQMk-2iq-bmnNlzrfcLpm6vzg"
+EARTHDATA_TOKEN = "eyJ0eXAiOiJKV1QiLCJvcmlnaW4iOiJFYXJ0aGRhdGEgTG9naW4iLCJzaWciOiJlZGxqd3RwdWJrZXlfb3BzIiwiYWxnIjoiUlMyNTYifQ.eyJ0eXBlIjoiVXNlciIsInVpZCI6ImE3bWVkX2Vzc28iLCJleHAiOjE3NjQzNzQzOTksImlhdCI6MTc1OTE1NjcwNSwiaXNzIjoiaHR0cHM6Ly91cnMuZWFydGhkYXRhLm5hc2EuZ292IiwiaWRlbnRpdHlfcHJvdmlkZXIiOiJlZGxfb3BzIiwiYWNyIjoiZWRsIiwiYXNzdXJhbmNlX2xldmVsIjozfQ.37ornZlS0nY1ri4VPKlCpKs763OHwQi0iCFmZ_wp80i_jm_g4OoBMBO8PuzEn6bth9MiUDDO0N3VTClWwJyzr9-ohRCAhnwllaCM0PLJVr7OKQ8nZF7MjjvFXJu4CUh5IPs9ojxGrroY27o-pWRQK7LCv7gstr6xF3szQt3wL0YBrki4EABFxNzm2KetIlkyplYBpGp2HIpfofAZcTFECNIC11qE6L8KwhlTDSi4-OTRGXSOTe3Wd6Ol6QsO6RmyU9iUIbuhb-mBqSVXRxd8s8HFlKqcLHBtT4j1f4qG5P7lpB1wEYTYyAZjI3bppLkYEP6ybYj4Kaoe6moCYqMwAg"
 
 # Snowflake Config
 SNOWFLAKE_ACCOUNT = "KBZQPZO-WX06551"
-SNOWFLAKE_USER = "MAYARHANY1999"
+SNOWFLAKE_USER = "A7MEDESSO"
 SNOWFLAKE_AUTHENTICATOR = "externalbrowser"
 SNOWFLAKE_ROLE = "ACCOUNTADMIN"
 SNOWFLAKE_WAREHOUSE = "NASA_WH"
@@ -54,14 +54,16 @@ def transform_temperature(df: pd.DataFrame):
 def load_temperature_to_snowflake(df: pd.DataFrame):
     """تحميل البيانات لـ Snowflake"""
     conn = snowflake.connector.connect(
-        account=SNOWFLAKE_ACCOUNT,
-        user=SNOWFLAKE_USER,
-        authenticator=SNOWFLAKE_AUTHENTICATOR,
-        role=SNOWFLAKE_ROLE,
-        warehouse=SNOWFLAKE_WAREHOUSE,
-        database=SNOWFLAKE_DATABASE,
-        schema=SNOWFLAKE_SCHEMA,
-    )
+    account="KBZQPZO-WX06551",
+    user="A7MEDESSO",
+    password="Ahmedesso@2005",   # ✨ تحط الباسورد هنا
+    authenticator="snowflake",
+    warehouse="NASA_WH",
+    database="NASA_DB",
+    schema="PUBLIC",
+    role="ACCOUNTADMIN"
+)
+
     cur = conn.cursor()
 
     cur.execute("""
